@@ -6,17 +6,33 @@ import HelloWorldRedux from './HelloWorldRedux';
 
 import * as helloWorldActions from '../actions/HelloWorldActions';
 
-const HelloWorldContainer = ({ actions, data }) => (
-  <HelloWorldRedux {...{ actions, data }} />
-);
+const HelloWorldContainer = ({ actions, data, locationData }) => {
+  console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+  console.log("HelloWorldContainer");
+  console.log("location = ", locationData);
+  console.log("data = ", data);
+  console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
 
+  return (
+    <HelloWorldRedux {...{actions, data, locationData}} />
+  );
+}
 HelloWorldContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  locationData: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
-  return { data: state.helloWorldData };
+  console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+  console.log("mapStateToProps");
+  console.log("state", state);
+  console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+
+  return { 
+    data: state.helloWorldData,
+    locationData: state.locationData,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

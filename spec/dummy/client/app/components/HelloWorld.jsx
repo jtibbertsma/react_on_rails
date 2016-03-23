@@ -36,12 +36,17 @@ class HelloWorld extends React.Component {
 spec/dummy/client/app/components/HelloWorld.jsx:18`);
 
     const { name } = this.state;
+    const location = this.props.location;
 
     return (
       <div>
         <h3 className={css.brightColor}>
           Hello, {name}!
         </h3>
+        <p>
+          Location is:
+          <span id="location">{this.props.location}</span>
+        </p>
         <p>
           Say hello to:
           <input

@@ -479,9 +479,14 @@ You may wish to have 2 React components share the same the Redux store. For exam
 
 Suppose the Redux store is called `appStore`, and you have 3 React components that each need to connect to a store: `NavbarApp`, `CommentsApp`, and `BlogsApp`. I named them with `App` to indicate that they are the registered components.
 
-You will need to make a function that can create the store you will be using for all components and register it via the `registerStore` method. Note, this is a **storeCreator**, meaning that it is a function that takes props and returns a store:
+You will need to make a function that can create the store you will be using for all components and register it via the `registerStore` method. Note, this is a **storeCreator**, meaning that it is a function that takes (props, location) and returns a store:
 
 ```
+function appStore(props, location) {
+  // create a redux store, using props and the current page location
+  return myAppStore;
+}
+
 ReactOnRails.registerStore({
   appStore
 });

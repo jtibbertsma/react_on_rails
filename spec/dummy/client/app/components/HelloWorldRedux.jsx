@@ -6,6 +6,7 @@ export default class HelloWorldRedux extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     data: PropTypes.object.isRequired,
+    locationData: PropTypes.object.isRequired,
   };
 
   // Not necessary if we only call super, but we'll need to initialize state, etc.
@@ -25,14 +26,27 @@ export default class HelloWorldRedux extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, locationData } = this.props;
     const { name } = data;
+    const { location } = locationData;
+
+    console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+    console.log("HelloWorldRedux");
+    console.log("location", location);
+    console.log("props", this.props);
+    console.log("data", this.data);
+    console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+
 
     return (
       <div>
         <h3>
           Redux Hello, {name}!
         </h3>
+        <p>
+          Location is:<br/>
+          <span id="location">{location}</span>
+        </p>
         <p>
           With Redux, say hello to:
           <input

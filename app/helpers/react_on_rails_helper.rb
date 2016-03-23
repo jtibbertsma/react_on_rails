@@ -272,7 +272,7 @@ module ReactOnRailsHelper
     domNodeId: '#{dom_id}',
     props: props,
     trace: #{trace(options)},
-    location: '#{request.fullpath}'
+    location: '#{location_param}'
   });
 })()
     JS
@@ -314,11 +314,16 @@ module ReactOnRailsHelper
       memo << <<-JS
 reduxProps = #{props};
 storeGenerator = ReactOnRails.getStoreGenerator('#{store_name}');
-store = storeGenerator(reduxProps);
+store = storeGenerator(reduxProps, '#{location_param}');
 ReactOnRails.setStore('#{store_name}', store);
       JS
     end
     result
+  end
+
+  # request.original_url # => "http://www.example.com/articles?page=2"
+  def location_param
+    request.original_url
   end
 
   def raise_on_prerender_error(options)

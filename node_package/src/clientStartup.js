@@ -40,11 +40,20 @@ function turbolinksVersion5() {
   return (typeof Turbolinks.controller !== 'undefined');
 }
 
+function location() {
+  return window.location.href + window.location.hash;
+}
+
 function initializeStore(el) {
   const name = el.getAttribute('data-store-name');
   const props = JSON.parse(el.getAttribute('data-props'));
   const storeGenerator = ReactOnRails.getStoreGenerator(name);
-  const store = storeGenerator(props);
+  console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+  console.log("initializeStore");
+  console.log("location()", location());
+  console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+
+  const store = storeGenerator(props, location());
   ReactOnRails.setStore(name, store);
 }
 
@@ -66,6 +75,7 @@ function render(el) {
         props,
         domNodeId,
         trace,
+        location: location()
       });
 
       if (isRouterResult(reactElementOrRouterResult)) {
