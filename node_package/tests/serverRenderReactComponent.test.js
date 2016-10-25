@@ -37,18 +37,17 @@ test('serverRenderReactComponent renders errors', (assert) => {
   assert.ok(hasErrors, 'serverRenderReactComponent should have errors if exception thrown');
 });
 
-test('serverRenderReactComponent throws an error if registerRenderer is used', (assert) => {
+test('serverRenderReactComponent renders an error if registerRenderer is used', (assert) => {
   assert.plan(1);
   const X3 = () => null;
   ComponentStore.registerRenderer({ X3 });
 
-  assert.throws(() => serverRenderReactComponent({
-    name: 'X3',
-    domNodeId: 'myDomId',
-    trace: false,
-    railsContext: { serverSide: true },
-  }),
-    /registerRenderer is not for use with server rendering/,
-    'Expected an error if registerRenderer was used to register the component.'
+  const { html } =
+    JSON.parse(serverRenderReactComponent({ name: 'X3', domNodeId: 'myDomId', trace: false }));
+
+  const ok = html.indexOf('registerRenderer') > 0 && html.indexOf('Exception in rendering!') > 0;
+  assert.ok(
+    ok,
+    'serverRenderReactComponent HTML should render error message if registerRenderer is called',
   );
 });
