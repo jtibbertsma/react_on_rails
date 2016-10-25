@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file. Items under
 
 Contributors: please follow the recommendations outlined at [keepachangelog.com](http://keepachangelog.com/). Please use the existing headings and styling as a guide, and add a link for the version diff at the bottom of the file. Also, please update the `Unreleased` link to compare to the latest release version.
 
+## [Unreleased]
+
+## [6.1.2] 2016-10-24
+##### Fixed
+- Added compatibility with older manifest.yml files produced by Rails 3 Sprockets when symlinking digested assets during precompilation [#566](https://github.com/shakacode/react_on_rails/pull/566) by [etripier](https://github.com/etripier).
+
 ## [6.1.1] 2016-09-09
 ##### Fixed
 - React on Rails was incorrectly failing to create symlinks when a file existed in the location for the new symlink. [#491](https://github.com/shakacode/react_on_rails/pull/541) by [robwise ](https://github.com/robwise) and [justin808](https://github.com/justin808).
@@ -133,7 +139,7 @@ All 5.1.0 changes can be found in [#362](https://github.com/shakacode/react_on_r
 - Previously, you could pass arbitrary additional html attributes to react_component. Now, you need to pass them in as a named parameter `html_options` to react_component.
 
 ##### Breaking Changes
-- You must provide named attributes, including `props` for view helper `react_compnent`. See [this commit](https://github.com/shakacode/react-webpack-rails-tutorial/commit/a97fa90042cbe27be7fd7fa70b5622bfcf9c3673) for an example migration used for [www.reactrails.com](http://www.reactrails.com).
+- You must provide named attributes, including `props` for view helper `react_component`. See [this commit](https://github.com/shakacode/react-webpack-rails-tutorial/commit/a97fa90042cbe27be7fd7fa70b5622bfcf9c3673) for an example migration used for [www.reactrails.com](http://www.reactrails.com).
 
 ## [4.0.3] - 2016-03-17
 
@@ -368,7 +374,8 @@ Best done with Object destructing:
 ##### Fixed
 - Fix several generator related issues.
 
-[Unreleased]: https://github.com/shakacode/react_on_rails/compare/6.1.1...master
+[Unreleased]: https://github.com/shakacode/react_on_rails/compare/6.1.2...master
+[6.1.2]: https://github.com/shakacode/react_on_rails/compare/6.1.1...6.1.2
 [6.1.1]: https://github.com/shakacode/react_on_rails/compare/6.1.0...6.1.1
 [6.1.0]: https://github.com/shakacode/react_on_rails/compare/6.0.5...6.1.0
 [6.0.5]: https://github.com/shakacode/react_on_rails/compare/6.0.4...6.0.5
