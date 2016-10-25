@@ -25,6 +25,33 @@ export default {
         name,
         component,
         generatorFunction: isGeneratorFunction,
+        isRenderer: false,
+      });
+    });
+  },
+
+  /**
+   * @param renderers { renderers1: renderers1, renderers2: renderers2, etc. }
+   */
+  registerRenderer(renderers) {
+    Object.keys(renderers).forEach(name => {
+      if (registeredComponents.has(name)) {
+        console.warn('Called registerRenderer for component that is already registered', name);
+      }
+
+      const renderer = renderers[name];
+
+      // A renderer must be a function
+      if (!generatorFunction(renderer)) {
+        throw new Error(`Called registerRenderer without passing a function; component name \
+is ${name}`);
+      }
+
+      registeredComponents.set(name, {
+        name,
+        component: renderer,
+        generatorFunction: false,
+        isRenderer: true,
       });
     });
   },

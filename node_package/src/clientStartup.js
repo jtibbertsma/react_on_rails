@@ -49,8 +49,20 @@ function turbolinksVersion5() {
   return (typeof Turbolinks.controller !== 'undefined');
 }
 
+function delegateToRenderer(componentObj, props, railsContext, domNodeId) {
+  const { component, isRenderer } = componentObj;
+
+  if (isRenderer) {
+    component(props, railsContext, domNodeId);
+    return true;
+  }
+
+  return false;
+}
+
 /**
- * Used for client rendering by ReactOnRails
+ * Used for client rendering by ReactOnRails. Either calls ReactDOM.render or delegates
+ * to a renderer registered by the user.
  * @param el
  */
 function render(el, railsContext) {
@@ -62,8 +74,13 @@ function render(el, railsContext) {
   try {
     const domNode = document.getElementById(domNodeId);
     if (domNode) {
+      const componentObj = ReactOnRails.getComponent(name);
+      if (delegateToRenderer(componentObj, props, railsContext, domNodeId)) {
+        return;
+      }
+
       const reactElementOrRouterResult = createReactElement({
-        name,
+        componentObj,
         props,
         domNodeId,
         trace,

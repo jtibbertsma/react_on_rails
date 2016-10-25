@@ -1,18 +1,30 @@
 import ReactDOMServer from 'react-dom/server';
 
+import ReactOnRails from './ReactOnRails';
 import createReactElement from './createReactElement';
 import isRouterResult from './isRouterResult';
 import buildConsoleReplay from './buildConsoleReplay';
 import handleError from './handleError';
 
 export default function serverRenderReactComponent(options) {
-  const { name, domNodeId, trace } = options;
+  const { name, domNodeId, trace, props, railsContext } = options;
 
   let htmlResult = '';
   let hasErrors = false;
 
   try {
-    const reactElementOrRouterResult = createReactElement(options);
+    const componentObj = ReactOnRails.getComponent(name);
+    if (componentObj.isRenderer) {
+      throw new Error('registerRenderer is not for use with server rendering');
+    }
+
+    const reactElementOrRouterResult = createReactElement({
+      componentObj,
+      domNodeId,
+      trace,
+      props,
+      railsContext,
+    });
 
     if (isRouterResult(reactElementOrRouterResult)) {
       // We let the client side handle any redirect
