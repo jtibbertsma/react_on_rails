@@ -26,6 +26,6 @@ test('authenticityToken and authenticityHeaders', (assert) => {
   const realHeader = ReactOnRails.authenticityHeaders();
 
   assert.deepEqual(realHeader, { 'X-CSRF-Token': testToken, 'X-Requested-With': 'XMLHttpRequest' },
-    'authenticityHeaders returns valid header with CFRS token'
+    'authenticityHeaders returns valid header with CSRF token'
   );
 });
