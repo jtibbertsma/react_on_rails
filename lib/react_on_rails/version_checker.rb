@@ -18,6 +18,7 @@ module ReactOnRails
     # unless the user really knows what they're doing. So we will give a
     # warning if they do not.
     def warn_if_gem_and_node_package_versions_differ
+      return
       return if node_package_version.relative_path?
       return if node_package_version.major == gem_major_version
       log_differing_versions_warning
