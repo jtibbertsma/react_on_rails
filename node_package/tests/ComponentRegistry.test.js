@@ -13,7 +13,7 @@ test('ComponentRegistry registers and retrieves generator function components', 
   const C1 = () => <div>HELLO</div>;
   ComponentRegistry.register({ C1 });
   const actual = ComponentRegistry.get('C1');
-  const expected = { name: 'C1', component: C1, generatorFunction: true, renderer: false };
+  const expected = { name: 'C1', component: C1, generatorFunction: true, isRenderer: false };
   assert.deepEqual(actual, expected,
     'ComponentRegistry should store and retrieve a generator function');
 });
@@ -27,7 +27,7 @@ test('ComponentRegistry registers and retrieves ES5 class components', (assert) 
   });
   ComponentRegistry.register({ C2 });
   const actual = ComponentRegistry.get('C2');
-  const expected = { name: 'C2', component: C2, generatorFunction: false, renderer: false };
+  const expected = { name: 'C2', component: C2, generatorFunction: false, isRenderer: false };
   assert.deepEqual(actual, expected,
     'ComponentRegistry should store and retrieve a ES5 class');
 });
@@ -43,7 +43,7 @@ test('ComponentRegistry registers and retrieves ES6 class components', (assert) 
   }
   ComponentRegistry.register({ C3 });
   const actual = ComponentRegistry.get('C3');
-  const expected = { name: 'C3', component: C3, generatorFunction: false, renderer: false };
+  const expected = { name: 'C3', component: C3, generatorFunction: false, isRenderer: false };
   assert.deepEqual(actual, expected,
     'ComponentRegistry should store and retrieve a ES6 class');
 });
@@ -53,7 +53,7 @@ test('ComponentRegistry registers and retrieves renderers', (assert) => {
   const C4 = () => null;
   ComponentRegistry.registerRenderer({ C4 });
   const actual = ComponentRegistry.get('C4');
-  const expected = { name: 'C4', component: C4, generatorFunction: false, renderer: true };
+  const expected = { name: 'C4', component: C4, generatorFunction: false, isRenderer: true };
   assert.deepEqual(actual, expected,
     'ComponentRegistry registers and retrieves renderers');
 });
@@ -71,9 +71,9 @@ test('ComponentRegistry registers and retrieves multiple components', (assert) =
   const components = ComponentRegistry.components();
   assert.equal(components.size, 6, 'size should be 6');
   assert.deepEqual(components.get('C5'),
-    { name: 'C5', component: C5, generatorFunction: true, renderer: false });
+    { name: 'C5', component: C5, generatorFunction: true, isRenderer: false });
   assert.deepEqual(components.get('C6'),
-    { name: 'C6', component: C6, generatorFunction: true, renderer: false });
+    { name: 'C6', component: C6, generatorFunction: true, isRenderer: false });
 });
 
 test('ComponentRegistry throws error for retrieving unregistered component', (assert) => {
