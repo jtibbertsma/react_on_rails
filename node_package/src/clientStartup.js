@@ -80,6 +80,7 @@ function delegateToRenderer(componentObj, props, railsContext, domNodeId) {
  * @param el
  */
 function render(el, railsContext) {
+  const context = findContext();
   const name = el.getAttribute('data-component-name');
   const domNodeId = el.getAttribute('data-dom-id');
   const props = JSON.parse(el.getAttribute('data-props'));
@@ -88,7 +89,7 @@ function render(el, railsContext) {
   try {
     const domNode = document.getElementById(domNodeId);
     if (domNode) {
-      const componentObj = ReactOnRails.getComponent(name);
+      const componentObj = context.ReactOnRails.getComponent(name);
       if (delegateToRenderer(componentObj, props, railsContext, domNodeId)) {
         return;
       }
