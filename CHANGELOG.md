@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. Items under
 Contributors: please follow the recommendations outlined at [keepachangelog.com](http://keepachangelog.com/). Please use the existing headings and styling as a guide, and add a link for the version diff at the bottom of the file. Also, please update the `Unreleased` link to compare to the latest release version.
 
 ## [Unreleased]
+##### Added
+- New API registerRenderer which allows a user to manually render their app to the DOM by [jtibbertsma](https://github.com/jtibbertsma)
 
 ## [6.1.2] 2016-10-24
 ##### Fixed
