@@ -31,7 +31,7 @@ export default {
   },
 
   /**
-   * @param renderers { renderers1: renderers1, renderers2: renderers2, etc. }
+   * @param renderers { renderer1: renderer1, renderer2: renderer2, etc. }
    */
   registerRenderer(renderers) {
     Object.keys(renderers).forEach(name => {
