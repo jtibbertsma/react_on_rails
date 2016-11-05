@@ -12,11 +12,11 @@ Your support keeps this project going.
 
 (Want to become a contributor? [Contact us](mailto:contact@shakacode.com) for an Slack team invite! Also, see ["easy" issues](https://github.com/shakacode/react_on_rails/labels/easy) and [issues for the full tutorial](https://github.com/shakacode/react-webpack-rails-tutorial/issues?q=is%3Aissue+is%3Aopen+label%3Aeasy).)
 
-# Articles
+# Articles, Videos, and Podcasts
+
+### Articles
 * [React on Rails, 2000+ 🌟 Stars](https://medium.com/shakacode/react-on-rails-2000-stars-32ff5cfacfbf#.6gmfb2gpy)
 * [The React on Rails Doctrine](https://medium.com/@railsonmaui/the-react-on-rails-doctrine-3c59a778c724)
-
-# Videos
 
 ### [React On Rails Tutorial Series](https://www.youtube.com/playlist?list=PL5VAKH-U1M6dj84BApfUtvBjvF-0-JfEU)
 
@@ -24,7 +24,11 @@ Your support keeps this project going.
 2. [Basic Tutorial Walkthrough](https://youtu.be/_bjScw60FBk)
 3. [Code Walkthrough](https://youtu.be/McQ9UM-_ocQ)
 
+### Podcasts
+* [284 Ruby Rogues: React on Rails with Justin Gordon and Rob Wise](https://devchat.tv/ruby-rogues/284-rr-react-on-rails-with-justin-gordon-and-rob-wise)
+
 # NEWS
+* 2016-11-03: Speaking at [LA Ruby, 7pm, Thursday, November 10 in Vencice, CA: "React on Rails: Why, What, and How?"](http://www.meetup.com/laruby/events/234825187/)
 * 2016-08-27: We now have a [Documentation Gitbook](https://shakacode.gitbooks.io/react-on-rails/content/) for improved readability & reference.
 * 2016-08-21: v6.1 ships with serveral new features and bug fixes. See the [Changelog](CHANGELOG.md).
 * 2016-07-28: If you're doing server rendering, be sure to use mini\_racer! See [issues/428](https://github.com/shakacode/react_on_rails/issues/428). It's supposedly much faster than `therubyracer`.
@@ -543,7 +547,7 @@ We owe much gratitude to the work of the [react-rails gem](https://github.com/re
 
 # FINAL NOTES
 * See [Projects](PROJECTS.md) using and [KUDOS](./KUDOS.md) for React on Rails. Please submit yours! Please edit either page or [email us](mailto:contact@shakacode.com) and we'll add your info. We also **love stars** as it helps us attract new users and contributors.
-* Follow [@railsonmaui](https://twitter.com/railsonmaui) and [@shakacode](https://twitter.com/shakacode) on Twitter for updates on releases. We've also got a forum category dedicated to [react_on_rails](http://forum.shakacode.com/c/rails/ReactOnRails).
+* Follow [@railsonmaui](https://twitter.com/railsonmaui) and [@shakacode](https://twitter.com/shakacode) on Twitter for updates on releases. We've also got a forum category dedicated to [react_on_rails](https://forum.shakacode.com/c/rails/reactonrails).
 
 ---
 
