@@ -143,6 +143,16 @@ feature "React Router", js: true, driver: js_errors_driver do
   end
 end
 
+feature "Manual Rendering", :js do
+  subject { page }
+  background { visit "/client_side_manual_render" }
+  scenario "renderer function is called successfully" do
+    header_text = page.find(:css, "h1").text
+    expect(header_text).to eq("Manual Render Example")
+    expect(subject).to have_text "registerRenderer works"
+  end
+end
+
 shared_examples "React Component Shared Store" do |url|
   subject { page }
   background { visit url }
