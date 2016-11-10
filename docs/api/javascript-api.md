@@ -62,7 +62,7 @@ The best source of docs is the main [ReactOnRails.js](../../node_package/src/Rea
    * Allows registration of renderers. A renderer is a function that accept three args:
    * props, railsContext, and domNodeId, and is responsible for rendering a component
    * to the DOM. Not available on the server. For one possible use case see:
-   * docs/additional-reading/code-splitting.md
+https://github.com/shakacode/react_on_rails/blob/master/docs/additional-reading/code-splitting.md
    * @param renderers (key is component name, value is renderer)
    */
   registerRenderer(renderers)
