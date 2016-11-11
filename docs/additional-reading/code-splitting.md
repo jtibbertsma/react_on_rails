@@ -102,6 +102,4 @@ config = {
 
 This causes Webpack to prepend the code chunk filename with `/assets/` in the request url.
 
-Also, you'll probably need to alter config/initializers/assets.rb in your project so that rails knows about your code chunks and puts them in the assets folder during deployment.
-
 See [rails-assets.md](./rails-assets.md) to learn more about static assets.
