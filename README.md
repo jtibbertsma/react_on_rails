@@ -89,7 +89,8 @@ We're definitely not doing that. With react_on_rails, webpack is mainly generati
 ## Getting Started
 
 **For more detailed instructions**, see the [React on Rails Basic Tutorial](docs/tutorial.md).
-1. Add the following to your Gemfile and bundle install.
+
+1. Add the following to your Gemfile and `bundle install`.
 
   ```ruby
   gem "react_on_rails", "~> 6"
@@ -434,7 +435,7 @@ See [ReactOnRails JavaScript API](docs/api/javascript-api.md).
 
 #### Using Rails built-in CSRF protection in JavaScript
 
-Rails has built-in protection for Cross-Site Request Forgery (CSRF), see [Rails Documentation](http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf). To nicely utilize this feature in JavaScript requests, React on Rails is offerring two helpers that can be used as following for POST, PULL or DELETE requests:
+Rails has built-in protection for Cross-Site Request Forgery (CSRF), see [Rails Documentation](http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf). To nicely utilize this feature in JavaScript requests, React on Rails is offerring two helpers that can be used as following for POST, PUT or DELETE requests:
 
 ```js
 import ReactOnRails from 'react-on-rails';
