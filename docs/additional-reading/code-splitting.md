@@ -55,7 +55,7 @@ ReactOnRails.register({
   RouterApp,
 });
 ```
-Note that you should not use `registerRenderer` on the server. Instead, use `register` like normal. For an example of how to set up an app for server rendering, see the [react router docs](docs/additional-reading/react-router.md).
+Note that you should not use `registerRenderer` on the server. Instead, use `register` like normal. For an example of how to set up an app for server rendering, see the [react router docs](react-router.md).
 
 #### RouterAppRenderer.jsx
 ```jsx
