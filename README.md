@@ -454,6 +454,7 @@ If you are using [jquery-ujs](https://github.com/rails/jquery-ujs) for AJAX call
 
 1. [React on Rails docs for react-router](docs/additional-reading/react-router.md)
 1. Examples in [spec/dummy/app/views/react_router](spec/dummy/app/views/react_router) and follow to the JavaScript code in the [spec/dummy/client/app/startup/ServerRouterApp.jsx](spec/dummy/client/app/startup/ServerRouterApp.jsx).
+1. [Code Splitting docs](docs/additional-reading/code-splitting.md) for information about how to set up code splitting for server rendered routes.
 
 ## Deployment
 * Version 6.0 puts the necessary precompile steps automatically in the rake precompile step. You can, however, disable this by setting certain values to nil in the [config/initializers/react_on_rails.rb](spec/dummy/config/initializers/react_on_rails.rb).
@@ -484,6 +485,7 @@ Node.js can be used as the backend for server-side rendering instead of [execJS]
   + [Developing with the Webpack Dev Server](docs/additional-reading/webpack-dev-server.md)
   + [Node Server Rendering](docs/additional-reading/node-server-rendering.md)
   + [Server Rendering Tips](docs/additional-reading/server-rendering-tips.md)
+  + [Code Splitting](docs/additional-reading/code-splitting.md)
 
 + **Development**
   + [React on Rails Basic Installation Tutorial](docs/tutorial.md) ([live demo](https://hello-react-on-rails.herokuapp.com))
