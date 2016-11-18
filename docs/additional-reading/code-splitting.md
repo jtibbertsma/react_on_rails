@@ -8,11 +8,11 @@ What is code splitting? From the webpack documentation:
 
 Let's say you're requesting a page that needs to fetch a code chunk from the server before it's able to render. If you do all your rendering on the client side, you don't have to do anything special. However, if the page is rendered on the server, you'll find that React will spit out the following error:
 
-```
-Warning: React attempted to reuse markup in a container but the checksum was invalid. This generally means that you are using server rendering and the markup generated on the server was not what the client was expecting. React injected new markup to compensate which works but you have lost many of the benefits of server rendering. Instead, figure out why the markup being generated is different on the client or server:
- (client) <!-- react-empty: 1 -
- (server) <div data-reactroot="
-```
+> Warning: React attempted to reuse markup in a container but the checksum was invalid. This generally means that you are using server rendering and the markup generated on the server was not what the client was expecting. React injected new markup to compensate which works but you have lost many of the benefits of server rendering. Instead, figure out why the markup being generated is different on the client or server:
+
+> (client) <!-- react-empty: 1 -
+
+> (server) <div data-reactroot="
 <!--This comment is here because the comment beginning on line 13 messes up Sublime's markdown parsing-->
 
 Different markup is generated on the client than on the server. Why does this happen? When you register a component with `ReactOnRails.register`, react on rails will render the component as soon as the page loads. However, react-router renders a comment while waiting for the code chunk to be fetched from the server. This means that react will tear all of the server rendered code out of the DOM, and then rerender it a moment later once the code chunk arrives from the server, defeating most of the purpose of server rendering.
@@ -23,14 +23,14 @@ To prevent this, you have to wait until the code chunk is fetched before doing t
 
 Here's an example of how you might use this in practice:
 
-page.html.erb
+#### page.html.erb
 ```erb
 <%= redux_store_hydration_data %>
 <%= react_component("NavigationApp", prerender: true) %>
 <%= react_component("RouterApp", prerender: true) %>
 ```
 
-clientRegistration.js
+#### clientRegistration.js
 ```js
 import ReactOnRails from 'react-on-rails';
 import NavigationApp from './NavigationApp';
@@ -42,7 +42,22 @@ ReactOnRails.register({NavigationApp});
 ReactOnRails.registerRenderer({RouterApp});
 ```
 
-RouterAppRenderer.jsx
+#### serverRegistration.js
+```js
+import ReactOnRails from 'react-on-rails';
+import NavigationApp from './NavigationApp';
+import RouterApp from './RouterAppServer';
+import applicationStore from '../store/applicationStore';
+
+ReactOnRails.registerStore({applicationStore});
+ReactOnRails.register({
+  NavigationApp,
+  RouterApp,
+});
+```
+Note that you should not use `registerRenderer` on the server. Instead, use `register` like normal. For an example of how to set up an app for server rendering, see the [react router docs](react-router.md).
+
+#### RouterAppRenderer.jsx
 ```jsx
 import ReactOnRails from 'react-on-rails';
 import React from 'react';
@@ -82,7 +97,7 @@ Note that in page.html.erb, we call `react_component` in the exact same way as i
 
 ### Caveats
 
-If you're going to try to do code splitting with server rendered routes, it's important that you have seperate webpack configurations for client and server. The code splitting happens for the client, but the server should one big file.
+If you're going to try to do code splitting with server rendered routes, you'll probably need to use seperate route definitions for client and server to prevent code splitting from happening for the server bundle. The server bundle should be one file containing all the JavaScript code.
 
 The reason is we do server rendering with ExecJS, which is not capable of doing anything asynchronous. See [this issue](https://github.com/shakacode/react_on_rails/issues/477) for a discussion.
 

@@ -18,6 +18,15 @@ The best source of docs is the main [ReactOnRails.js](../../node_package/src/Rea
   registerStore(stores)
 
   /**
+   * Allows registration of renderers. A renderer is a function that accept three args:
+   * props, railsContext, and domNodeId, and is responsible for rendering a component
+   * to the DOM. Not available on the server. For one possible use case see:
+https://github.com/shakacode/react_on_rails/blob/master/docs/additional-reading/code-splitting.md
+   * @param renderers (key is component name, value is renderer)
+   */
+  registerRenderer(renderers)
+
+  /**
    * Allows retrieval of the store by name. This store will be hydrated by any Rails form props.
    * Pass optional param throwIfMissing = false if you want to use this call to get back null if the
    * store with name is not registered.
@@ -57,13 +66,4 @@ The best source of docs is the main [ReactOnRails.js](../../node_package/src/Rea
    */
 
   authenticityHeaders(otherHeaders = {})
-
-  /**
-   * Allows registration of renderers. A renderer is a function that accept three args:
-   * props, railsContext, and domNodeId, and is responsible for rendering a component
-   * to the DOM. Not available on the server. For one possible use case see:
-https://github.com/shakacode/react_on_rails/blob/master/docs/additional-reading/code-splitting.md
-   * @param renderers (key is component name, value is renderer)
-   */
-  registerRenderer(renderers)
 ```

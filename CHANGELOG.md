@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file. Items under
 Contributors: please follow the recommendations outlined at [keepachangelog.com](http://keepachangelog.com/). Please use the existing headings and styling as a guide, and add a link for the version diff at the bottom of the file. Also, please update the `Unreleased` link to compare to the latest release version.
 
 ## [Unreleased]
+
+## [6.2.0]
 ##### Added
-- New API registerRenderer which allows a user to manually render their app to the DOM by [jtibbertsma](https://github.com/jtibbertsma)
+- New API registerRenderer which allows a user to manually render their app to the DOM [#581](https://github.com/shakacode/react_on_rails/pull/581) by [jtibbertsma](https://github.com/jtibbertsma).
 
 ## [6.1.2] 2016-10-24
 ##### Fixed
@@ -376,7 +378,8 @@ Best done with Object destructing:
 ##### Fixed
 - Fix several generator related issues.
 
-[Unreleased]: https://github.com/shakacode/react_on_rails/compare/6.1.2...master
+[Unreleased]: https://github.com/shakacode/react_on_rails/compare/6.2.0...master
+[6.2.0]: https://github.com/shakacode/react_on_rails/compare/6.1.2...6.2.0
 [6.1.2]: https://github.com/shakacode/react_on_rails/compare/6.1.1...6.1.2
 [6.1.1]: https://github.com/shakacode/react_on_rails/compare/6.1.0...6.1.1
 [6.1.0]: https://github.com/shakacode/react_on_rails/compare/6.0.5...6.1.0
