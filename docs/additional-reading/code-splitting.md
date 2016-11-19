@@ -93,6 +93,10 @@ export default RouterApp;
 
 What's going on in this example is that we're putting the rendering code in the callback passed to `match`. The effect is that the client render doesn't happen until the code chunk gets fetched from the server, preventing the client/server code mismatch.
 
+The idea is that match from react-router is async; it fetches the component using the getComponent method that you provide with the route definition, and then passes the props to the callback that are needed to do the complete render. Then we do the first render inside of the callback, so that the first render is the same as the server render.
+
+The server render matches the deferred render because the server bundle is a single file, and so it doesn't need to wait for anything to be fetched.
+
 Note that in page.html.erb, we call `react_component` in the exact same way as if we were going to call `register` in the startup code.
 
 ### Caveats
