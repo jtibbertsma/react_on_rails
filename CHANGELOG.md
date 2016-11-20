@@ -5,19 +5,23 @@ Contributors: please follow the recommendations outlined at [keepachangelog.com]
 
 ## [Unreleased]
 
-## [6.2.0]
+## [6.3.0]
 ##### Added
 - New API registerRenderer which allows a user to manually render their app to the DOM [#581](https://github.com/shakacode/react_on_rails/pull/581) by [jtibbertsma](https://github.com/jtibbertsma).
 
-## [6.1.2] 2016-10-24
+## [6.2.0] - 2016-11-19
+##### Changed
+- Updated the generator templates to reflect current best practices, especially for the redux version. [#584](https://github.com/shakacode/react_on_rails/pull/584) by [nostophilia](https://github.com/nostophilia).
+
+## [6.1.2] - 2016-10-24
 ##### Fixed
 - Added compatibility with older manifest.yml files produced by Rails 3 Sprockets when symlinking digested assets during precompilation [#566](https://github.com/shakacode/react_on_rails/pull/566) by [etripier](https://github.com/etripier).
 
-## [6.1.1] 2016-09-09
+## [6.1.1] - 2016-09-09
 ##### Fixed
 - React on Rails was incorrectly failing to create symlinks when a file existed in the location for the new symlink. [#491](https://github.com/shakacode/react_on_rails/pull/541) by [robwise ](https://github.com/robwise) and [justin808](https://github.com/justin808).
 
-## [6.1.0] 2016-08-21
+## [6.1.0] - 2016-08-21
 
 ##### Added
 - Node option for installer added as alternative for server rendering [#469](https://github.com/shakacode/react_on_rails/pull/469) by [jbhatab](https://github.com/jbhatab).
