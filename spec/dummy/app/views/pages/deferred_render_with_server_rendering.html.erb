@@ -1,0 +1,34 @@
+<%= render "header" %>
+
+<%= react_component("DeferredRenderApp", props: {}, prerender: true) %>
+<hr/>
+
+<h2>Deferred Rendering of Async Routes</h2>
+<ul>
+  <li>
+    <p>
+      Use registerRenderer to expose the rendering function to ReactOnRails on the client side:
+    </p>
+    <pre>
+  import DeferredRenderApp from './DeferredRenderAppRenderer';
+
+  ReactOnRails.registerRenderer({
+    DeferredRenderApp,
+  });
+    </pre>
+    <h4>spec/dummy/client/app/startup/clientRegistration.jsx</h4>
+    <br>
+  </li>
+
+  <li>
+    <p>On the server side, use register:</p>
+    <pre>
+  import DeferredRenderApp from './DeferredRenderAppServer';
+
+  ReactOnRails.register({
+    DeferredRenderApp,
+  });
+    </pre>
+    <h4>spec/dummy/client/app/startup/serverRegistration.jsx</h4>
+  </li>
+</ul>
