@@ -9,6 +9,11 @@ Contributors: please follow the recommendations outlined at [keepachangelog.com]
 ##### Added
 - New API registerRenderer which allows a user to manually render their app to the DOM [#581](https://github.com/shakacode/react_on_rails/pull/581) by [jtibbertsma](https://github.com/jtibbertsma).
 
+## [6.2.1] - 2016-11-19
+- Removed unnecesary passing of context in the HelloWorld Container example and basic generator. [#612](https://github.com/shakacode/react_on_rails/pull/612) by [justin808](https://github.com/justin808)
+
+- Turbolinks 5 bugfix to use `before-cache`, not `before-render`. [#611](https://github.com/shakacode/react_on_rails/pull/611) by [volkanunsal](https://github.com/volkanunsal).
+
 ## [6.2.0] - 2016-11-19
 ##### Changed
 - Updated the generator templates to reflect current best practices, especially for the redux version. [#584](https://github.com/shakacode/react_on_rails/pull/584) by [nostophilia](https://github.com/nostophilia).
@@ -382,7 +387,8 @@ Best done with Object destructing:
 ##### Fixed
 - Fix several generator related issues.
 
-[Unreleased]: https://github.com/shakacode/react_on_rails/compare/6.2.0...master
+[Unreleased]: https://github.com/shakacode/react_on_rails/compare/6.2.1...master
+[6.2.1]: https://github.com/shakacode/react_on_rails/compare/6.2.0...6.2.1
 [6.2.0]: https://github.com/shakacode/react_on_rails/compare/6.1.2...6.2.0
 [6.1.2]: https://github.com/shakacode/react_on_rails/compare/6.1.1...6.1.2
 [6.1.1]: https://github.com/shakacode/react_on_rails/compare/6.1.0...6.1.1
