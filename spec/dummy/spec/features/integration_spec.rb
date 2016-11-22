@@ -167,13 +167,14 @@ feature "Code Splitting", :js do
   end
 end
 
-# feature "Code Splitting w/ Server Rendering", :js do
-#   subject { page }
-#   background { visit "/deferred_render_with_server_rendering/async_page" }
-#   scenario "loading an asyncronous route should not cause a client/server checksum mismatch" do
-#     expect(page).to_not have_errors
-#   end
-# end
+feature "Code Splitting w/ Server Rendering", :js do
+  subject { page }
+  background { visit "/deferred_render_with_server_rendering/async_page" }
+  scenario "loading an asyncronous route should not cause a client/server checksum mismatch" do
+    root = page.find(:xpath, "//div[@data-reactroot]")
+    expect(root["data-react-checksum"].present?).to be(true)
+  end
+end
 
 shared_examples "React Component Shared Store" do |url|
   subject { page }
