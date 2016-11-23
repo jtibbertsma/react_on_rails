@@ -19,15 +19,15 @@ Different markup is generated on the client than on the server. Why does this ha
 
 ### The solution
 
-To prevent this, you have to wait until the code chunk is fetched before doing the initial render on the client side. To accomplish this, react on rails allows you to register a renderer. This works just like registering a generator function, except that the function you pass takes three arguments: `renderer(props, railsContext, domNodeId)`, and is responsible for calling `ReactDOM.render` to render the component to the DOM. React on rails will automatically detect when a generator function take three arguments, and will not call `ReactDOM.render`, instead allowing you to control the initial render yourself.
+To prevent this, you have to wait until the code chunk is fetched before doing the initial render on the client side. To accomplish this, react on rails allows you to register a renderer. This works just like registering a generator function, except that the function you pass takes three arguments: `renderer(props, railsContext, domNodeId)`, and is responsible for calling `ReactDOM.render` to render the component to the DOM. React on rails will automatically detect when a generator function takes three arguments, and will not call `ReactDOM.render`, instead allowing you to control the initial render yourself.
 
 Here's an example of how you might use this in practice:
 
 #### page.html.erb
 ```erb
-<%= redux_store_hydration_data %>
 <%= react_component("NavigationApp", prerender: true) %>
 <%= react_component("RouterApp", prerender: true) %>
+<%= redux_store_hydration_data %>
 ```
 
 #### clientRegistration.js
@@ -74,8 +74,9 @@ import routes from '../routes/routes';
 
 const RouterAppRenderer = (props, railsContext, domNodeId) => {
   const store = ReactOnRails.getStore('applicationStore');
+  const history = browserHistory;
 
-  match({ history: browserHistory, routes }, (error, redirectionLocation, renderProps) => {
+  match({ history, routes }, (error, redirectionLocation, renderProps) => {
     if (error) {
       throw error;
     }
