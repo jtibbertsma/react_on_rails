@@ -15,7 +15,7 @@ export default function serverRenderReactComponent(options) {
   try {
     const componentObj = ReactOnRails.getComponent(name);
     if (componentObj.isRenderer) {
-      throw new Error('registerRenderer is not for use with server rendering');
+      throw new Error(`Detected a renderer while server rendering component '${name}'`);
     }
 
     const reactElementOrRouterResult = createReactElement({

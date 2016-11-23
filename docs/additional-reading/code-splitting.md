@@ -15,11 +15,11 @@ Let's say you're requesting a page that needs to fetch a code chunk from the ser
 > (server) <div data-reactroot="
 <!--This comment is here because the comment beginning on line 13 messes up Sublime's markdown parsing-->
 
-Different markup is generated on the client than on the server. Why does this happen? When you register a component with `ReactOnRails.register`, react on rails will render the component as soon as the page loads. However, react-router renders a comment while waiting for the code chunk to be fetched from the server. This means that react will tear all of the server rendered code out of the DOM, and then rerender it a moment later once the code chunk arrives from the server, defeating most of the purpose of server rendering.
+Different markup is generated on the client than on the server. Why does this happen? When you register a component or generator function with `ReactOnRails.register`, react on rails will render the component as soon as the page loads. However, react-router renders a comment while waiting for the code chunk to be fetched from the server. This means that react will tear all of the server rendered code out of the DOM, and then rerender it a moment later once the code chunk arrives from the server, defeating most of the purpose of server rendering.
 
 ### The solution
 
-To prevent this, you have to wait until the code chunk is fetched before doing the initial render on the client side. To accomplish this, react on rails provides a javascript API `registerRenderer`. This works rather like registering a generator function with `register`, except that the function you pass takes three arguments: `renderer(props, railsContext, domNodeId)`, and is responsible for calling `ReactDOM.render` to render the component to the DOM.
+To prevent this, you have to wait until the code chunk is fetched before doing the initial render on the client side. To accomplish this, react on rails allows you to register a renderer. This works just like registering a generator function, except that the function you pass takes three arguments: `renderer(props, railsContext, domNodeId)`, and is responsible for calling `ReactDOM.render` to render the component to the DOM. React on rails will automatically detect when a generator function take three arguments, and will not call `ReactDOM.render`, instead allowing you to control the initial render yourself.
 
 Here's an example of how you might use this in practice:
 
@@ -38,8 +38,10 @@ import RouterApp from './RouterAppRenderer';
 import applicationStore from '../store/applicationStore';
 
 ReactOnRails.registerStore({applicationStore});
-ReactOnRails.register({NavigationApp});
-ReactOnRails.registerRenderer({RouterApp});
+ReactOnRails.register({
+  NavigationApp,
+  RouterApp,
+});
 ```
 
 #### serverRegistration.js
@@ -55,7 +57,7 @@ ReactOnRails.register({
   RouterApp,
 });
 ```
-Note that you should not use `registerRenderer` on the server. Instead, use `register` like normal. For an example of how to set up an app for server rendering, see the [react router docs](react-router.md).
+Note that you should not register a renderer on the server, since there won't be a domNodeId when we're server rendering. For an example of how to set up an app for server rendering, see the [react router docs](react-router.md).
 
 #### RouterAppRenderer.jsx
 ```jsx
@@ -70,7 +72,7 @@ import { Provider } from 'react-redux';
 import routes from '../routes/routes';
 
 
-const RouterApp = (props, railsContext, domNodeId) => {
+const RouterAppRenderer = (props, railsContext, domNodeId) => {
   const store = ReactOnRails.getStore('applicationStore');
 
   match({ history: browserHistory, routes }, (error, redirectionLocation, renderProps) => {
@@ -88,24 +90,22 @@ const RouterApp = (props, railsContext, domNodeId) => {
   });
 };
 
-export default RouterApp;
+export default RouterAppRenderer;
 ```
 
-What's going on in this example is that we're putting the rendering code in the callback passed to `match`. The effect is that the client render doesn't happen until the code chunk gets fetched from the server, preventing the client/server code mismatch.
+What's going on in this example is that we're putting the rendering code in the callback passed to `match`. The effect is that the client render doesn't happen until the code chunk gets fetched from the server, preventing the client/server checksum mismatch.
 
 The idea is that match from react-router is async; it fetches the component using the getComponent method that you provide with the route definition, and then passes the props to the callback that are needed to do the complete render. Then we do the first render inside of the callback, so that the first render is the same as the server render.
 
 The server render matches the deferred render because the server bundle is a single file, and so it doesn't need to wait for anything to be fetched.
 
-Note that in page.html.erb, we call `react_component` in the exact same way as if we were going to call `register` in the startup code.
-
 ### Caveats
 
 If you're going to try to do code splitting with server rendered routes, you'll probably need to use seperate route definitions for client and server to prevent code splitting from happening for the server bundle. The server bundle should be one file containing all the JavaScript code.
 
-The reason is we do server rendering with ExecJS, which is not capable of doing anything asynchronous. See [this issue](https://github.com/shakacode/react_on_rails/issues/477) for a discussion.
+The reason is we do server rendering with ExecJS, which is not capable of doing anything asynchronous. It would be impossible to asyncronously fetch a code chunk while server rendering. See [this issue](https://github.com/shakacode/react_on_rails/issues/477) for a discussion.
 
-The `registerRenderer` API should not be used in the server bundle; `register` should be used instead. If you attempt to server render a component registered by `registerRenderer` in the server bundle, you'll get an error.
+Also, do not attempt to register a renderer on the server. Instead, register either a generator function or a component. If you register a renderer in the server bundle, you'll get an error when react on rails tries to server render the component.
 
 ## How does Webpack know where to find my code chunks?
 
@@ -119,6 +119,6 @@ config = {
 };
 ```
 
-This causes Webpack to prepend the code chunk filename with `/assets/` in the request url.
+This causes Webpack to prepend the code chunk filename with `/assets/` in the request url. The react on rails sets up the webpack config to put webpack bundles in `app/assets/javascripts/webpack`, and modifies `config/initializers/assets.rb` so that rails detects the bundles. This means that when we prepend the request url with `/assets/`, rails will know what webpack is asking for.
 
 See [rails-assets.md](./rails-assets.md) to learn more about static assets.

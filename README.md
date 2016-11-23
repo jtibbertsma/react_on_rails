@@ -310,6 +310,12 @@ You may want different initialization for your server rendered components. For e
 
 If you do want different code to run, you'd setup a separate webpack compilation file and you'd specify a different, server side entry file. ex. 'serverHelloWorldApp.jsx'. Note, you might be initializing HelloWorld with version specialized for server rendering.
 
+#### Generator Functions
+Why would you create a function that returns a React component? For example, you may want the ability to use the passed-in props to initialize a redux store or setup react-router. Or you may want to return different components depending on what's in the props. ReactOnRails will automatically detect a registered generator function.
+
+#### Renderer Functions
+A renderer function is a generator function that accepts three arguments: `(props, railsContext, domNodeId) => { ... }`. Instead of returning a React component, a renderer is responsible for calling `ReactDOM.render` to manually render a React component into the dom. Why would you want to call `ReactDOM.render` yourself? One possible use case is [code splitting](docs/additional-reading/code-splitting.md).
+
 ## ReactOnRails View Helpers API
 Once the bundled files have been generated in your `app/assets/webpack` folder and you have exposed your components globally, you will want to run your code in your Rails views using the included helper method.
 
@@ -327,7 +333,7 @@ react_component(component_name,
                 html_options: {})
 ```
 
-+ **component_name:** Can be a React component, created using a ES6 class, or `React.createClass`, or a generator function that returns a React component.
++ **component_name:** Can be a React component, created using a ES6 class, or `React.createClass`, a generator function that returns a React component, or a renderer function that manually renders a React component to the dom (client side only).
 + **options:**
   + **props:** Ruby Hash which contains the properties to pass to the react object, or a JSON string. If you pass a string, we'll escape it for you.
   + **prerender:** enable server-side rendering of component. Set to false when debugging!
@@ -364,9 +370,6 @@ Note, you don't need to separately initialize your redux store. However, it's re
 
 1. You want to have multiple components that access the same store.
 2. You want to place the props to hydrate the client side stores at the very end of your HTML so that the browser can render all earlier HTML first. This is particularly useful if your props will be large.
-
-### Generator Functions
-Why would you create a function that returns a React component? For example, you may want the ability to use the passed-in props to initialize a redux store or setup react-router. Or you may want to return different components depending on what's in the props. ReactOnRails will automatically detect a registered generator function.
 
 ### server_render_js
 `server_render_js(js_expression, options = {})`
