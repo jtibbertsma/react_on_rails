@@ -81,13 +81,13 @@ const RouterAppRenderer = (props, railsContext, domNodeId) => {
       throw error;
     }
 
-    const component = (
+    const reactElement = (
       <Provider store={store}>
         <Router {...renderProps} />
       </Provider>
     );
 
-    ReactDOM.render(component, document.getElementById(domNodeId));
+    ReactDOM.render(reactElement, document.getElementById(domNodeId));
   });
 };
 
