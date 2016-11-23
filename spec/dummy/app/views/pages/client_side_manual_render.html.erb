@@ -3,10 +3,10 @@
 <%= react_component("ManualRenderApp", props: {}, prerender: false) %>
 <hr/>
 
-<h2>Manual Rendering with registerRenderer</h2>
+<h2>Using Renderer Functions to Manually Render Your App</h2>
 <ul>
   <li>
-    <p>Use react_component the same way you would if you were using register:</p>
+    <p>Use react_component the same way you would if you were registering a generator function or component:</p>
     <pre>
   <%%= react_component("ManualRenderApp", props: {}, prerender: false) %>
     </pre>
@@ -15,7 +15,7 @@
   </li>
 
   <li>
-    <p>Use registerRenderer to expose the rendering function to ReactOnRails:</p>
+    <p>Use register to expose the rendering function to ReactOnRails:</p>
     <pre>
   import ManualRenderApp from './ManualRenderAppRenderer';
 
@@ -34,7 +34,7 @@
     const reactElement = (
       <%= '<div>' %>
         <%= '<h1>Manual Render Example</h1>' %>
-        <%= '<p>If you can see this, registerRenderer works.</p>' %>
+        <%= '<p>If you can see this, you can register renderer functions.</p>' %>
       <%= '</div>' %>
     );
 

@@ -149,7 +149,7 @@ feature "Manual Rendering", :js do
   scenario "renderer function is called successfully" do
     header_text = page.find(:css, "h1").text
     expect(header_text).to eq("Manual Render Example")
-    expect(subject).to have_text "registerRenderer works"
+    expect(subject).to have_text "If you can see this, you can register renderer functions."
   end
 end
 

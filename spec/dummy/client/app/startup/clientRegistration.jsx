@@ -29,9 +29,6 @@ ReactOnRails.register({
   RouterApp,
   PureComponent,
   CssModulesImagesFontsExample,
-});
-
-ReactOnRails.registerRenderer({
   ManualRenderApp,
   DeferredRenderApp,
 });

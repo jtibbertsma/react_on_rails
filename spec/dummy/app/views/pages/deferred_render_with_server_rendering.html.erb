@@ -7,7 +7,7 @@
 <ul>
   <li>
     <p>
-      Use registerRenderer to expose the rendering function to ReactOnRails on the client side:
+      Use register to expose the rendering function to ReactOnRails on the client side:
     </p>
     <pre>
   import DeferredRenderApp from './DeferredRenderAppRenderer';
@@ -21,7 +21,7 @@
   </li>
 
   <li>
-    <p>On the server side, use register:</p>
+    <p>Don't register rendering functions on the server side. Instead, create a generator function for use on the server:</p>
     <pre>
   import DeferredRenderApp from './DeferredRenderAppServer';
 
@@ -30,5 +30,10 @@
   });
     </pre>
     <h4>spec/dummy/client/app/startup/serverRegistration.jsx</h4>
+    <br>
+  </li>
+
+  <li>
+    See <b>spec/dummy/client/app/startup/DeferredRenderAppRenderer.jsx</b> and <b>spec/dummy/client/app/startup/DeferredRenderAppServer.jsx</b>
   </li>
 </ul>

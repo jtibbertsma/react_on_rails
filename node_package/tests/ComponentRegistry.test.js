@@ -2,6 +2,7 @@
 /* eslint-disable react/prefer-es6-class */
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable react/jsx-filename-extension */
+/* eslint-disable no-unused-vars */
 
 import test from 'tape';
 import React from 'react';
@@ -50,10 +51,10 @@ test('ComponentRegistry registers and retrieves ES6 class components', (assert) 
 
 test('ComponentRegistry registers and retrieves renderers', (assert) => {
   assert.plan(1);
-  const C4 = () => null;
-  ComponentRegistry.registerRenderer({ C4 });
+  const C4 = (a1, a2, a3) => null;
+  ComponentRegistry.register({ C4 });
   const actual = ComponentRegistry.get('C4');
-  const expected = { name: 'C4', component: C4, generatorFunction: false, isRenderer: true };
+  const expected = { name: 'C4', component: C4, generatorFunction: true, isRenderer: true };
   assert.deepEqual(actual, expected,
     'ComponentRegistry registers and retrieves renderers');
 });
@@ -90,18 +91,5 @@ test('ComponentRegistry throws error for setting null component', (assert) => {
   assert.throws(() => ComponentRegistry.register({ C7 }),
     /Called register with null component named C7/,
     'Expected an exception for calling ComponentRegistry.set with a null component.'
-  );
-});
-
-test('ComponentRegistry registerRenderer throws error unless given a function', (assert) => {
-  assert.plan(1);
-  const C8 = React.createClass({
-    render() {
-      return <div>stahp</div>;
-    },
-  });
-  assert.throws(() => ComponentRegistry.registerRenderer({ C8 }),
-    /Called registerRenderer without passing a function/,
-    'Expected an exception for calling ComponentRegistry.registerRenderer without a function.'
   );
 });
