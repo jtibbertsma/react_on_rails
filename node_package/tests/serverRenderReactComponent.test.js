@@ -46,7 +46,7 @@ test('serverRenderReactComponent renders an error if attempting to render a rend
   const { html } =
     JSON.parse(serverRenderReactComponent({ name: 'X3', domNodeId: 'myDomId', trace: false }));
 
-  const ok = html.indexOf('registerRenderer') > 0 && html.indexOf('Exception in rendering!') > 0;
+  const ok = html.indexOf('renderer') > 0 && html.indexOf('Exception in rendering!') > 0;
   assert.ok(
     ok,
     'serverRenderReactComponent renders an error if attempting to render a renderer',
