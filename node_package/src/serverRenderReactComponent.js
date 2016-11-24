@@ -1,6 +1,6 @@
 import ReactDOMServer from 'react-dom/server';
 
-import ReactOnRails from './ReactOnRails';
+import ComponentRegistry from './ComponentRegistry';
 import createReactElement from './createReactElement';
 import isRouterResult from './isRouterResult';
 import buildConsoleReplay from './buildConsoleReplay';
@@ -13,7 +13,7 @@ export default function serverRenderReactComponent(options) {
   let hasErrors = false;
 
   try {
-    const componentObj = ReactOnRails.getComponent(name);
+    const componentObj = ComponentRegistry.get(name);
     if (componentObj.isRenderer) {
       throw new Error(`Detected a renderer while server rendering component '${name}'`);
     }
