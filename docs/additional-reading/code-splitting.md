@@ -151,3 +151,5 @@ You'll also see the following in your Rails development log:
 > Started GET "/1.1-bundle.js" for 127.0.0.1 at 2016-11-29 15:21:55 -0800
 >
 > ActionController::RoutingError (No route matches [GET] "/1.1-bundle.js")
+
+It's worth mentioning that in Webpack v2, it's possible to register an error handler by calling `catch` on the promise returned by `System.import`, so if you want to do error handling, you should use v2. The [example](#working-example) in `spec/dummy` is currently using Webpack v1.
