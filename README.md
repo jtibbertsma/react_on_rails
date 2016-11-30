@@ -316,6 +316,8 @@ Why would you create a function that returns a React component? For example, you
 #### Renderer Functions
 A renderer function is a generator function that accepts three arguments: `(props, railsContext, domNodeId) => { ... }`. Instead of returning a React component, a renderer is responsible for calling `ReactDOM.render` to manually render a React component into the dom. Why would you want to call `ReactDOM.render` yourself? One possible use case is [code splitting](docs/additional-reading/code-splitting.md).
 
+Renderer functions are not meant to be used on the server, since there's no DOM on the server. Instead, use a generator function. Attempting to server render with a renderer function will cause an error.
+
 ## ReactOnRails View Helpers API
 Once the bundled files have been generated in your `app/assets/webpack` folder and you have exposed your components globally, you will want to run your code in your Rails views using the included helper method.
 

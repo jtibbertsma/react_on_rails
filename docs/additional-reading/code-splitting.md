@@ -34,6 +34,9 @@ Here's an example of how you might use this in practice:
 ```js
 import ReactOnRails from 'react-on-rails';
 import NavigationApp from './NavigationApp';
+
+// Note that we're importing a different RouterApp that in serverRegistration.js
+// Renderer functions should not be used on the server, because there is no DOM.
 import RouterApp from './RouterAppRenderer';
 import applicationStore from '../store/applicationStore';
 
@@ -48,6 +51,8 @@ ReactOnRails.register({
 ```js
 import ReactOnRails from 'react-on-rails';
 import NavigationApp from './NavigationApp';
+
+// Note that we're importing a different RouterApp that in clientRegistration.js
 import RouterApp from './RouterAppServer';
 import applicationStore from '../store/applicationStore';
 
@@ -57,7 +62,7 @@ ReactOnRails.register({
   RouterApp,
 });
 ```
-Note that you should not register a renderer on the server, since there won't be a domNodeId when we're server rendering. For an example of how to set up an app for server rendering, see the [react router docs](react-router.md).
+Note that you should not register a renderer on the server, since there won't be a domNodeId when we're server rendering. Note that the `RouterApp` imported by `serverRegistration.js` is from a different file. For an example of how to set up an app for server rendering, see the [react router docs](react-router.md).
 
 #### RouterAppRenderer.jsx
 ```jsx
@@ -100,9 +105,22 @@ The idea is that match from react-router is async; it fetches the component usin
 
 The server render matches the deferred render because the server bundle is a single file, and so it doesn't need to wait for anything to be fetched.
 
+### Working Example
+
+There's an implemented example of code splitting in the `spec/dummy` folder of this repository.
+
+See:
+
+- [spec/dummy/client/app/startup/clientRegistration.jsx](../../spec/dummy/client/app/startup/clientRegistration.jsx)
+- [spec/dummy/client/app/startup/serverRegistration.jsx](../../spec/dummy/client/app/startup/serverRegistration.jsx)
+- [spec/dummy/client/app/startup/DeferredRenderAppRenderer.jsx](../../spec/dummy/client/app/startup/DeferredRenderAppRenderer.jsx) <-- Code splitting implemented here
+- [spec/dummy/client/app/startup/DeferredRenderAppServer.jsx](../../spec/dummy/client/app/startup/DeferredRenderAppServer.jsx)
+- [spec/dummy/client/app/components/DeferredRender.jsx](../../spec/dummy/client/app/components/DeferredRender.jsx)
+- [spec/dummy/client/app/components/DeferredRenderAsyncPage.jsx](../../spec/dummy/client/app/components/DeferredRenderAsyncPage.jsx)
+
 ### Caveats
 
-If you're going to try to do code splitting with server rendered routes, you'll probably need to use seperate route definitions for client and server to prevent code splitting from happening for the server bundle. The server bundle should be one file containing all the JavaScript code.
+If you're going to try to do code splitting with server rendered routes, you'll probably need to use seperate route definitions for client and server to prevent code splitting from happening for the server bundle. The server bundle should be one file containing all the JavaScript code. This will require you to have seperate webpack configurations for client and server.
 
 The reason is we do server rendering with ExecJS, which is not capable of doing anything asynchronous. It would be impossible to asyncronously fetch a code chunk while server rendering. See [this issue](https://github.com/shakacode/react_on_rails/issues/477) for a discussion.
 
@@ -123,3 +141,13 @@ config = {
 This causes Webpack to prepend the code chunk filename with `/assets/` in the request url. The react on rails sets up the webpack config to put webpack bundles in `app/assets/javascripts/webpack`, and modifies `config/initializers/assets.rb` so that rails detects the bundles. This means that when we prepend the request url with `/assets/`, rails will know what webpack is asking for.
 
 See [rails-assets.md](./rails-assets.md) to learn more about static assets.
+
+If you forget to set the public path, webpack will request the code chunk at `/{filename}`. This will cause the request to be handled by the Rails router, which will send back a 404 response, assuming that you don't have a catch-all route. In your javascript console, you'll get the following error:
+
+> GET http://localhost:3000/1.1-bundle.js
+
+You'll also see the following in your Rails development log:
+
+> Started GET "/1.1-bundle.js" for 127.0.0.1 at 2016-11-29 15:21:55 -0800
+>
+> ActionController::RoutingError (No route matches [GET] "/1.1-bundle.js")

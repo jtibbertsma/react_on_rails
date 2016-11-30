@@ -15,7 +15,9 @@ export default function serverRenderReactComponent(options) {
   try {
     const componentObj = ComponentRegistry.get(name);
     if (componentObj.isRenderer) {
-      throw new Error(`Detected a renderer while server rendering component '${name}'`);
+      throw new Error(`\
+Detected a renderer while server rendering component '${name}'. \
+See https://github.com/shakacode/react_on_rails#renderer-functions`);
     }
 
     const reactElementOrRouterResult = createReactElement({
